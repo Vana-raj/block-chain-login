@@ -1,6 +1,6 @@
 @import '../../style/utils/Variables.scss';
 
-.navbar {
+.navbar2 {
   width: 100%;
   position: fixed;
   top: 0;
@@ -68,8 +68,6 @@
         text-decoration: none;
         margin-left: 2rem;
       }
-
-     
     }
   }
 
@@ -99,6 +97,13 @@
   margin-left: 10px;
 }
 
+.profile-dropdown {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+padding-left: 10px;
+}
+  
 }
 
 

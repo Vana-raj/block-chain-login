@@ -12,49 +12,55 @@ import { useEffect } from "react";
 
 const servicesData = [
     {
-        icon: icon1,
-        title: "Immutable Records",
+        icon: icon3,
+        title: "BRSR",
+        id:"1",
         shortText:
-            "All disclosures are timestamped and locked on the blockchain, ensuring transparency and audit-readiness.",
+         "Digitize your BRSR reporting with streamlined workflows and real-time stakeholder access.",
         viewDetails: "#",
-        aosDelay: "100",
+        aosDelay: "300",
+        url: `${process.env.REACT_APP_BRSR_URL}/dashboard`,
+
     },
     {
         icon: icon2,
-        title: "Automated Data Assurance",
+        title: "GRI",
+        id:"2",
         shortText:
-            "Smart contracts validate inputs against BRSR Standards to prevent greenwashing or human error.",
+         "Easily align with GRI Standards through guided inputs and smart contract-based validations.",
         viewDetails: "#",
         aosDelay: "200",
+        url: `${process.env.REACT_APP_GRI_URL}/dashboard`,
+
     },
     {
-        icon: icon3,
-        title: "Real-Time Stakeholder Access",
+        icon: icon1,
+        id:"3",
+        title: "SSS",
         shortText:
-            "Give investors, auditors, and regulators instant, permissioned access to sustainability reports.",
+           "Manage supplier data, performance, and ESG risk—all in one secure, blockchain-backed platform.",
         viewDetails: "#",
-        aosDelay: "300",
+        aosDelay: "100",
+        url: `${process.env.REACT_APP_SSS_URL}/dashboard`,
     },
-    {
-        icon: icon4,
-        title: "Future-Proofing ESG Reports",
-        shortText:
-            "With growing ESG scrutiny and digital assurance trends, blockchain-readiness positions.",
-        viewDetails: "#",
-        aosDelay: "400",
-    },
+   
 ];
 
-const HelpDesk: React.FC = () => {
+const HelpDeskMainpage: React.FC = () => {
     useEffect(() => {
         AOS.init({ once: true });
     }, []);
+const handleClick = (url:string) => {
+  window.location.href = `${url}`;
+};
 
     return (
         <div className="helpdesk-section ptb-100">
             <div className="container">
                 <div className="section-title">
-                    <h2>Why Blockchain For Application?</h2>
+                    <h2>Empowered customers, efficient workforce,</h2>
+                    <h1>Direct Business Impact</h1>
+                    <p className="footer__description">Our suite of products are designed to deliver exceptional value for our customers, minus typical software complexities and expenses.</p>
                 </div>
 
                 <div className="row">
@@ -64,17 +70,16 @@ const HelpDesk: React.FC = () => {
                             data-aos="fade-up"
                             data-aos-duration="1000"
                             data-aos-delay={item.aosDelay}
-                            key={i}
+                            key={item.id}
+                            onClick={() => handleClick(item?.url)}
                         >
                             <div className="helpdesk-card">
                                 <div className="icon">
                                     <img src={item.icon} alt="icon" />
+                                     <p>{item.shortText}</p>
                                 </div>
-                                <h3>{item.title}</h3>
-                                <p>{item.shortText}</p>
-                                <a href={item.viewDetails} className="link-btn">
-                                    Learn More <i className="fa-solid fa-angle-right"></i>
-                                </a>
+                                <h3  className="link-btn">{item.title} <i className="fa-solid fa-angle-right"></i></h3>
+                               
                             </div>
                         </div>
                     ))}
@@ -84,4 +89,4 @@ const HelpDesk: React.FC = () => {
     );
 };
 
-export default HelpDesk;
+export default HelpDeskMainpage;

@@ -52,17 +52,24 @@ body {
     }
   }
 .navbar {
-  background: $grey;
-  border-radius: 25px;
+   width: 100%;
+  background: #f9f9f9;
   display: $flex;
+  top: 0;
+  padding: $commonPadding;
   align-items: center;
   justify-content: space-between;
-  padding: $commonPadding;
-
+  position: fixed;  
+  z-index: 1000;
+  transition: all 0.3s ease;
+  border-radius: 0;
+ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
    .navbar-logo {
    cursor: pointer;
    }
 }
+
+
 
 
 .navbar ul {
@@ -252,3 +259,22 @@ body {
   font-size: 13px;
 }
 
+ .navbar-actions {
+      .btn-connect {
+        background-color: #09b96d;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        text-decoration: none;
+        margin-left: 2rem;
+
+         &:hover {
+        background-color: #09b96d !important;
+        color: white !important;
+        border-color: #09b96d !important;
+      
+    }
+      }
+    }
+
+    

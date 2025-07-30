@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Avatar, Modal, Tooltip } from 'antd';
+import { Avatar, Button, Modal, Tooltip } from 'antd';
 import { matchSorter } from 'match-sorter';
 import AeiforoLogo from '../../assets/images/Aeiforo-logo.png';
 import { ReactComponent as Profile } from '../../assets/images/profile.svg';
@@ -200,7 +200,7 @@ const NavBar: React.FC = () => {
     };
 
     const goToHomePage = () => {
-        navigate('/dashboard');
+        navigate('/landing_page');
     };
 
     const goToSupplierManagement = () => {
@@ -258,38 +258,7 @@ const NavBar: React.FC = () => {
                         alt="AeiforoLogo"
                     />
                 </div>
-                <div className="flex">
-                    <ul>
-                        <li>
-                            <Link
-                                to="/dashboard"
-                                className={activeLink === 'dashboard' ? 'active' : ''}
-                                onClick={() => handleLinkClick('dashboard')}
-                            >
-                                Dashboard
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/reports"
-                                className={activeLink === 'reports' ? 'active' : ''}
-                                onClick={() => handleLinkClick('reports')}
-                            >
-                                BRSR
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link
-                                to="/analytics"
-                                className={activeLink === 'analytics' ? 'active' : ''}
-                                onClick={() => handleLinkClick('analytics')}
-                            >
-                                Analytics
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
+           
                 <div className="nav-profile-all">
                     <CustomSearchInput
                         value={searchQuery}
@@ -319,6 +288,11 @@ const NavBar: React.FC = () => {
                             <Avatar size={40} icon={<Profile />} />
                         </Tooltip>
                     </div>
+                     {/* <div className="navbar-actions">
+                             <Button onClick={showLogoutConfirm} className="btn-connect">
+                                Logout
+                            </Button>
+                     </div> */}
                 </div>
             </div>
             <CustomModal
