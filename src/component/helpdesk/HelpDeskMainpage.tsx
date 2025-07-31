@@ -60,7 +60,8 @@ const handleClick = (url:string) => {
                 <div className="section-title">
                     <h2>Empowered customers, efficient workforce,</h2>
                     <h1>Direct Business Impact</h1>
-                    <p className="footer__description">Our suite of products are designed to deliver exceptional value for our customers, minus typical software complexities and expenses.</p>
+                    <p className="footer__description">Our suite of products are designed to deliver exceptional value for our customers,</p>
+                    <p className="footer__description">minus typical software complexities and expenses.</p>
                 </div>
 
                 <div className="row">
