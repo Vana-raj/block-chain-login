@@ -158,29 +158,89 @@ const NavBar: React.FC = () => {
     const handleLinkClick = (linkName: string) => {
         setActiveLink(linkName);
     };
-    const disconnectWallet = () => {
-        if (window.ethereum && window.ethereum.disconnect) {
-            window.ethereum.disconnect();
-        }
-        if (window.ethereum && window.ethereum.provider && window.ethereum.provider.disconnect) {
-            window.ethereum.provider.disconnect();
-        }
-        localStorage.removeItem('walletConnected');
-        localStorage.removeItem('walletAddress');
-        localStorage.removeItem('walletProvider');
-    };
+ 
+const handleAccountsChanged = (accounts:string[]) => {
+  if (accounts.length === 0) {
+    console.log('Wallet disconnected');
+    localStorage.removeItem('walletAddress');
+  } else {
+    const newAddress = accounts[0];
+    localStorage.setItem('walletAddress', newAddress);
+  }
+};
 
-    const handleLogout = () => {
-        disconnectWallet();
-        setIsDropdownOpen(!isDropdownOpen);
-        navigate('/');
-        localStorage.removeItem('record');
-        localStorage.removeItem('activeTab');
-        localStorage.removeItem('totalAnswered');
-        localStorage.removeItem('answeredQuestions');
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-    };
+const handleChainChanged = (chainId:string) => {
+  console.log('Chain changed:', chainId);
+  window.location.reload();
+};
+
+const setupWalletListeners = () => {
+  if (window.ethereum) {
+    window.ethereum.on('accountsChanged', handleAccountsChanged);
+    window.ethereum.on('chainChanged', handleChainChanged);
+  }
+};
+ const removeWalletListeners = () => {
+    if (window.ethereum) {
+      window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
+      window.ethereum.removeListener('chainChanged', handleChainChanged);
+    }
+  };
+
+ useEffect(() => {
+        setupWalletListeners();
+        return () => {
+            removeWalletListeners();
+        };
+    }, []);
+
+const disconnectWallet = async () => {
+  try {
+    localStorage.removeItem('walletConnected');
+    localStorage.removeItem('walletAddress');
+    localStorage.removeItem('walletProvider');
+    
+    if (window.ethereum) {
+      if (window.ethereum.removeListener) {
+        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
+        window.ethereum.removeListener('chainChanged', handleChainChanged);
+      }
+      
+      try {
+        await window.ethereum.request({
+          method: 'wallet_revokePermissions',
+          params: [{ eth_accounts: {} }]
+        });
+      } catch (error) {
+        console.log('Revoke permissions not supported', error);
+      }
+    }
+    
+    if (window.ethereum?.disconnect) {
+      await window.ethereum.disconnect();
+    }
+  } catch (error) {
+    console.error('Error disconnecting wallet:', error);
+  }
+};
+
+const handleLogout = async () => {
+  try {
+    await disconnectWallet();
+    navigate('/')
+    localStorage.removeItem('record');
+    localStorage.removeItem('activeTab');
+    localStorage.removeItem('totalAnswered');
+    localStorage.removeItem('answeredQuestions');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    
+    
+    window.location.href = `http://localhost:3001/login`;
+  } catch (error) {
+    console.error('Logout error:', error);
+  }
+};
 
 
     const goToProfile = () => {

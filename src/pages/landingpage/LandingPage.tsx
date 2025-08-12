@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../component/homenavbar/HomeNavbar";
 import Banner from "../../component/banner/Banner";
 import HelpDesk from "../../component/helpdesk/HelpDesk";
@@ -11,6 +11,7 @@ import LatestNewsSlider from "../../component/latestnewslider/LatestNewsSlider";
 import AppDownload from "../../component/appdownload/AppDownload";
 
 const LandingPage: React.FC = () => {
+
     return (
         <div>
             <Navbar />
